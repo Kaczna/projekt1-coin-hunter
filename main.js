@@ -26,7 +26,6 @@ console.log (sirkaOkna, vyskaOkna);
 
 		panacek = document.querySelector("#panacek");
 		mince = document.querySelector("#mince");
-		document.querySelector('#score').innerHTML = ('Skóre: ' + score);
 		zvukMince = document.querySelector('#zvukmince');
 		zvukFanfara = document.querySelector('#zvukfanfara');
 		hudba = document.querySelector('#hudba');
@@ -50,7 +49,7 @@ console.log (sirkaOkna, vyskaOkna);
 	
 	
 	//panacek.style.left = '50%';
-	//panacek.style.top = '50%'; ... alternativní umístění
+	//panacek.style.top = '50%'; ... alternativní řešení umístění do středu
 
 	// umístíme panáčka na startovní pozici
 
@@ -64,7 +63,7 @@ console.log (sirkaOkna, vyskaOkna);
 		console.log(minceSirka, minceVyska);
 
 	//let rozmerMince = mince.getBoundingClientRect();
-	//console.log(rozmerMince); ... alternativní zjištění
+	//console.log(rozmerMince); ... alternativní zjištění rozměru mince
 
 
 	// a vygenerujeme první minci na náhodné pozici
@@ -184,17 +183,19 @@ function priStiskuKlavesy(udalost) {
 
 // fuknce pro otestování kolize panáčka s mincí
 function otestujKolizi() {
+	document.querySelector('#score').innerHTML = ('Skóre: ' + score);
+
 	if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 		// panacek a mince se prekryvaji
 		zvukMince.play();
 		novaMince();
 		score+=1;
-		score.setText = 'skóre' + score;
+		score.innerHTML = "Skóre je: ";
 		console.log('Skóre je: ' + score)
 
-		if (score===5) {
+		if (score>5) {
 			zvukFanfara.play();
-			score.innerHTML = 'Vyhrál jsi!'
+			window.alert('Vyhrál jsi!');
 		}
 		
 	}
