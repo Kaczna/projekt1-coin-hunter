@@ -3,6 +3,7 @@
 let panacek, panacekX, panacekY, panacekSirka, panacekVyska;
 let mince, minceX, minceY, minceSirka, minceVyska;
 let score = 0;
+let scoreElement = document.querySelector('#score') 
 let zvukMince;
 let zvukFanfara;
 let hudba;
@@ -29,6 +30,8 @@ console.log (sirkaOkna, vyskaOkna);
 		zvukMince = document.querySelector('#zvukmince');
 		zvukFanfara = document.querySelector('#zvukfanfara');
 		hudba = document.querySelector('#hudba');
+		scoreElement.innerHTML = "Skóre: ";
+
 			
 		
 
@@ -72,8 +75,6 @@ console.log (sirkaOkna, vyskaOkna);
 	
 }
 
-priNacteniStranky()
-
 
 // funkce, která umístí panáčka na jeho souřadnice
 // tj. nastaví jeho style.left a style.top na hodnoty panacekX, panacekY
@@ -83,9 +84,10 @@ function umistiPanacka() {
 	console.log(panacekX, panacekY);
 }
 
-umistiPanacka()
 
 // funkce pro nahodné vygenerování nové pozice mince
+
+
 // a umístění mince na tyto souřadnice
 function novaMince() {
 	minceX = Math.round(Math.random() * (window.innerWidth - minceSirka));
@@ -122,6 +124,9 @@ function novaMince() {
 // kde lze najít např. i vlastnost "key",
 // která obsahuje znak stisknuté klávesy
 function priStiskuKlavesy(udalost) {
+
+	// podkresová hudba 
+	hudba.play();
 
 	
 	// šipka vlevo
@@ -170,30 +175,29 @@ function priStiskuKlavesy(udalost) {
 		console.log(udalost)
 	}
 
-
-
 	// panáčka umistíme na nově vypočítanou pozici
 	umistiPanacka()
 
 	// otestujeme kolizi panáčka s mincí
 
 	otestujKolizi()
-	
 
+}
+
+	
 
 // fuknce pro otestování kolize panáčka s mincí
 function otestujKolizi() {
-	document.querySelector('#score').innerHTML = ('Skóre: ' + score);
 
 	if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 		// panacek a mince se prekryvaji
 		zvukMince.play();
 		novaMince();
 		score+=1;
-		score.innerHTML = "Skóre je: ";
+		scoreElement.innerHTML = "Skóre: " + score;
 		console.log('Skóre je: ' + score)
 
-		if (score>5) {
+		if (score===5) {
 			zvukFanfara.play();
 			window.alert('Vyhrál jsi!');
 		}
@@ -206,12 +210,10 @@ function otestujKolizi() {
 
 
 
-// podkresová hudba 
-	hudba.play();
 
-}
 
-priStiskuKlavesy()
+
+
 
 
 
